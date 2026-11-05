@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+
 import 'package:watchhub/screens/customer/profile_screen.dart';
 import 'package:watchhub/screens/customer/wishlist_screen.dart';
 
@@ -16,7 +17,7 @@ import '../../widgets/category_item.dart';
 import '../../widgets/product_card.dart';
 
 import 'search_screen.dart';
-import 'cart_screen.dart';
+import '../customer/cart_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

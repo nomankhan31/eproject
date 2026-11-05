@@ -9,6 +9,7 @@ import 'providers/cart_provider.dart';
 import 'providers/wishlist_provider.dart';
 
 import 'screens/splash/splash_screen.dart';
+import 'screens/customer/cart_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,9 +20,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
-
         ChangeNotifierProvider(create: (_) => CartProvider()),
-
         ChangeNotifierProvider(create: (_) => WishlistProvider()),
       ],
       child: const WatchhubApp(),
@@ -37,12 +36,17 @@ class WatchhubApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Watchhub',
+
+      // App Routes
+      routes: {'/cart': (context) => const CartScreen()},
+
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFB8860B)),
         fontFamily: 'Roboto',
       ),
+
       home: const SplashScreen(),
     );
   }

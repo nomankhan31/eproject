@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:provider/provider.dart';
 
 import '../models/product_model.dart';
+import '../providers/wishlist_provider.dart';
 import '../screens/user/product_details_screen.dart';
 
 class ProductCard extends StatelessWidget {
@@ -47,6 +49,8 @@ class ProductCard extends StatelessWidget {
                         const Icon(Icons.watch, size: 55, color: Colors.grey),
                   ),
                 ),
+
+                // Best Seller Badge
                 if (product.isBestSeller)
                   Positioned(
                     top: 7,
@@ -66,16 +70,66 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                   ),
+
+                // Wishlist Heart Button
+                Positioned(
+                  top: 5,
+                  right: 5,
+                  child: Consumer<WishlistProvider>(
+                    builder: (context, wishlist, child) {
+                      final isFavorite = wishlist.isFavorite(product.id);
+
+                      return Material(
+                        color: Colors.white,
+                        shape: const CircleBorder(),
+                        elevation: 2,
+                        child: InkWell(
+                          customBorder: const CircleBorder(),
+                          onTap: () {
+                            wishlist.toggleWishlist(product);
+
+                            ScaffoldMessenger.of(context)
+                              ..hideCurrentSnackBar()
+                              ..showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    isFavorite
+                                        ? 'Removed from Wishlist'
+                                        : 'Added to Wishlist',
+                                  ),
+                                  duration: const Duration(seconds: 1),
+                                ),
+                              );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(7),
+                            child: Icon(
+                              isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: isFavorite ? Colors.red : Colors.grey,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
+
             const SizedBox(height: 10),
+
             Text(
               product.title,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             ),
+
             const SizedBox(height: 5),
+
             Row(
               children: [
                 const Icon(Icons.star, size: 14, color: Color(0xFFFFB800)),
@@ -90,7 +144,9 @@ class ProductCard extends StatelessWidget {
                 ),
               ],
             ),
+
             const SizedBox(height: 7),
+
             Text(
               'Rs. ${product.price.toStringAsFixed(0)}',
               style: const TextStyle(
