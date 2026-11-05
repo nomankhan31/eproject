@@ -14,7 +14,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
 
@@ -35,7 +34,6 @@ class _SplashScreenState extends State<SplashScreen>
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
 
     _controller.forward();
-
     navigateUser();
   }
 
@@ -86,8 +84,9 @@ class _SplashScreenState extends State<SplashScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 125,
-                  width: 125,
+                  height: 230,
+                  width: 230,
+                  padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
@@ -95,10 +94,29 @@ class _SplashScreenState extends State<SplashScreen>
                       width: 2,
                     ),
                   ),
-                  child: const Icon(
-                    Icons.watch,
-                    size: 75,
-                    color: Color(0xFFD4AF37),
+                  child: ClipOval(
+                    child: Image.network(
+                      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900',
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, progress) {
+                        if (progress == null) return child;
+
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: Color(0xFFD4AF37),
+                          ),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Center(
+                          child: Icon(
+                            Icons.watch,
+                            size: 85,
+                            color: Color(0xFFD4AF37),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
 

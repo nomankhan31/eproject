@@ -51,15 +51,51 @@ class _LoginScreenState extends State<LoginScreen> {
     final provider = context.watch<AuthProvider>();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24),
             child: Column(
               children: [
-                const Icon(Icons.watch, size: 75, color: Color(0xFFB8860B)),
+                // WatchHub Network Logo
+                Container(
+                  height: 145,
+                  width: 145,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: const Color(0xFFF4F0E7),
+                    border: Border.all(
+                      color: const Color(0xFFB8860B),
+                      width: 2,
+                    ),
+                  ),
+                  child: ClipOval(
+                    child: Image.network(
+                      'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=500',
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, progress) {
+                        if (progress == null) return child;
 
-                const SizedBox(height: 12),
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: Color(0xFFB8860B),
+                          ),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Icon(
+                          Icons.watch,
+                          size: 65,
+                          color: Color(0xFFB8860B),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 18),
 
                 const Text(
                   'WATCHHUB',
@@ -67,10 +103,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 4,
+                    color: Colors.black,
                   ),
                 ),
 
-                const Text('Welcome Back'),
+                const SizedBox(height: 5),
+
+                const Text(
+                  'Welcome Back',
+                  style: TextStyle(fontSize: 16, color: Colors.black54),
+                ),
 
                 const SizedBox(height: 40),
 

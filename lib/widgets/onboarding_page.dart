@@ -32,11 +32,25 @@ class OnboardingPage extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(25),
-              child: Image.asset(
+              child: Image.network(
                 image,
                 fit: BoxFit.cover,
+                width: double.infinity,
+                loadingBuilder: (context, child, progress) {
+                  if (progress == null) return child;
+
+                  return const Center(
+                    child: CircularProgressIndicator(color: Color(0xFFB8860B)),
+                  );
+                },
                 errorBuilder: (context, error, stack) {
-                  return Icon(icon, size: 110, color: const Color(0xFFB8860B));
+                  return Center(
+                    child: Icon(
+                      icon,
+                      size: 110,
+                      color: const Color(0xFFB8860B),
+                    ),
+                  );
                 },
               ),
             ),

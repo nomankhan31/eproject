@@ -20,7 +20,7 @@ const List<OnboardingModel> onboardingPages = [
     description:
         'Explore a premium collection of watches '
         'designed to match your personality.',
-    image: 'assets/images/onboarding1.png',
+    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900',
     icon: Icons.watch,
   ),
 
@@ -29,7 +29,7 @@ const List<OnboardingModel> onboardingPages = [
     description:
         'Find elegant, classic and modern watches '
         'crafted for every special moment.',
-    image: 'assets/images/onboarding2.png',
+    image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=900',
     icon: Icons.diamond_outlined,
   ),
 
@@ -38,7 +38,7 @@ const List<OnboardingModel> onboardingPages = [
     description:
         'Enjoy a simple shopping experience, '
         'secure checkout and reliable delivery.',
-    image: 'assets/images/onboarding3.png',
+    image: 'https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?w=900',
     icon: Icons.local_shipping_outlined,
   ),
 ];
